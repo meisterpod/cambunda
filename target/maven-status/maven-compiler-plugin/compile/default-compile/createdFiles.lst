@@ -1,0 +1,5 @@
+com\poc\cambunda\ProcessDeployment.class
+com\poc\cambunda\TaskManagement.class
+com\poc\cambunda\worker\ListernerEvent.class
+com\poc\cambunda\CambundaApplication.class
+com\poc\cambunda\worker\TaskEvent.class

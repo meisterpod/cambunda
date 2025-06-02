@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1hw9scn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="6e03b81" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+  <bpmn:process id="contract-validation" name="Contract" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_1gjtulp" name="yes" sourceRef="Gateway_1wm9l32" targetRef="Activity_06rt551">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approvalDecision="approve"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0m1mcbi" name="no" sourceRef="Gateway_1wm9l32" targetRef="Event_0w6rssl">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approvalDecision="reject"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_06x6yae" sourceRef="Activity_06rt551" targetRef="Event_09hkshc" />
+    <bpmn:sequenceFlow id="Flow_0bpkcqq" sourceRef="StartEvent_1" targetRef="Activity_0t4geix" />
+    <bpmn:sequenceFlow id="Flow_0pr3chu" sourceRef="Activity_0t4geix" targetRef="Gateway_1wm9l32" />
+    <bpmn:exclusiveGateway id="Gateway_1wm9l32" name="Can we validate?">
+      <bpmn:incoming>Flow_0pr3chu</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gjtulp</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0m1mcbi</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_0w6rssl" name="process-rejected">
+      <bpmn:incoming>Flow_0m1mcbi</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_09hkshc" name="process-finished">
+      <bpmn:incoming>Flow_06x6yae</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_1" name="process-started">
+      <bpmn:outgoing>Flow_0bpkcqq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0t4geix" name="user-task">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="approve-form" />
+        <zeebe:userTask />
+        <zeebe:executionListeners>
+          <zeebe:executionListener eventType="end" type="NotifyUser" retries="3" />
+        </zeebe:executionListeners>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0bpkcqq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pr3chu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_06rt551" name="send-contract">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="SendContract" retries="3" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gjtulp</bpmn:incoming>
+      <bpmn:outgoing>Flow_06x6yae</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Contract_Validation">
+      <bpmndi:BPMNShape id="Gateway_1wm9l32_di" bpmnElement="Gateway_1wm9l32" isMarkerVisible="true">
+        <dc:Bounds x="425" y="92" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="410" y="62" width="85" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0w6rssl_di" bpmnElement="Event_0w6rssl">
+        <dc:Bounds x="432" y="212" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="412" y="255" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09hkshc_di" bpmnElement="Event_09hkshc">
+        <dc:Bounds x="712" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="692" y="142" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="162" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="146" y="142" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1imuj3y_di" bpmnElement="Activity_0t4geix">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0o08xm4_di" bpmnElement="Activity_06rt551">
+        <dc:Bounds x="560" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1gjtulp_di" bpmnElement="Flow_1gjtulp">
+        <di:waypoint x="475" y="117" />
+        <di:waypoint x="560" y="117" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="497" y="99" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m1mcbi_di" bpmnElement="Flow_0m1mcbi">
+        <di:waypoint x="450" y="142" />
+        <di:waypoint x="450" y="212" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="463" y="163" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06x6yae_di" bpmnElement="Flow_06x6yae">
+        <di:waypoint x="660" y="117" />
+        <di:waypoint x="712" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bpkcqq_di" bpmnElement="Flow_0bpkcqq">
+        <di:waypoint x="198" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pr3chu_di" bpmnElement="Flow_0pr3chu">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="425" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
