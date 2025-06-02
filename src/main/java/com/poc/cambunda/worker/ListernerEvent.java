@@ -19,14 +19,13 @@ public class ListernerEvent {
     @Autowired
     private RestTemplate restTemplate;
 
-    @JobWorker(type = "NotifyBankingWS")
-    public void notifyBankingWS(JobClient client, ActivatedJob job) {
+    @JobWorker(type = "StartEvent")
+    public void processEvent(JobClient client, ActivatedJob job) {
         Map<String, Object> variables = job.getVariablesAsMap();
         System.out.println("Notifying banking-ws with vars: " + variables);
 
         try {
             // Send HTTP notification to banking-ws
-            RestTemplate restTemplate = new RestTemplate();
             String url = connectorUrl + "/api/tasks/notify";
 
             restTemplate.postForEntity(url, variables, Void.class);

@@ -1,4 +1,5 @@
 com\poc\cambunda\ProcessDeployment.class
+com\poc\cambunda\config\RestTemplateConfig.class
 com\poc\cambunda\TaskManagement.class
 com\poc\cambunda\worker\ListernerEvent.class
 com\poc\cambunda\CambundaApplication.class

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1hw9scn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="6e03b81" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
   <bpmn:process id="contract-validation" name="Contract" isExecutable="true">
+    <bpmn:extensionElements />
     <bpmn:sequenceFlow id="Flow_1gjtulp" name="yes" sourceRef="Gateway_1wm9l32" targetRef="Activity_06rt551">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approvalDecision="approve"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -29,7 +30,7 @@
         <zeebe:formDefinition formId="approve-form" />
         <zeebe:userTask />
         <zeebe:executionListeners>
-          <zeebe:executionListener eventType="end" type="NotifyUser" retries="3" />
+          <zeebe:executionListener eventType="start" retries="3" type="StartEvent" />
         </zeebe:executionListeners>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0bpkcqq</bpmn:incoming>
@@ -37,14 +38,14 @@
     </bpmn:userTask>
     <bpmn:serviceTask id="Activity_06rt551" name="send-contract">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="SendContract" retries="3" />
+        <zeebe:taskDefinition type="ServiceTask" retries="3" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1gjtulp</bpmn:incoming>
       <bpmn:outgoing>Flow_06x6yae</bpmn:outgoing>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Contract_Validation">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="contract-validation">
       <bpmndi:BPMNShape id="Gateway_1wm9l32_di" bpmnElement="Gateway_1wm9l32" isMarkerVisible="true">
         <dc:Bounds x="425" y="92" width="50" height="50" />
         <bpmndi:BPMNLabel>

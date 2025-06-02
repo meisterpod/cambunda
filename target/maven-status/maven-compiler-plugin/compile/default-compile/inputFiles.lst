@@ -1,5 +1,6 @@
-C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\cambunda\src\main\java\com\poc\cambunda\CambundaApplication.java
-C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\cambunda\src\main\java\com\poc\cambunda\ProcessDeployment.java
-C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\cambunda\src\main\java\com\poc\cambunda\TaskManagement.java
-C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\cambunda\src\main\java\com\poc\cambunda\worker\ListernerEvent.java
-C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\cambunda\src\main\java\com\poc\cambunda\worker\TaskEvent.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\CambundaApplication.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\config\RestTemplateConfig.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\ProcessDeployment.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\TaskManagement.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\worker\ListernerEvent.java
+C:\Users\diopp\OneDrive - Moody's\Documents\cambunda\src\main\java\com\poc\cambunda\worker\TaskEvent.java

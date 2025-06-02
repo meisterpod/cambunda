@@ -1,13 +1,13 @@
 package com.poc.cambunda.worker;
 
+import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.spring.client.annotation.JobWorker;
-import io.camunda.zeebe.client.api.response.ActivatedJob;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -20,8 +20,8 @@ public class TaskEvent {
     @Autowired
     private RestTemplate restTemplate;
 
-    @JobWorker(type = "NotifyUser")
-    public void handleEndTask(final JobClient client, final ActivatedJob job) {
+    @JobWorker(type = "ServiceTask")
+    public void processTask(final JobClient client, final ActivatedJob job) {
         /* Get job variables if needed
            Map<String, Object> variables = job.getVariablesAsMap();
            System.out.println("Job variables: " + variables);
