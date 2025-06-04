@@ -11,7 +11,6 @@ spring:
   devtools:
     add-properties: false
 
-
 camunda:
   client:
     mode: self-managed
@@ -54,3 +53,8 @@ tasklist:
     clusterName: elasticsearch
     url: http://localhost:9200
     prefix: zeebe-record
+
+quarkus:
+  langchain4j:
+    openai:
+      api-key: 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

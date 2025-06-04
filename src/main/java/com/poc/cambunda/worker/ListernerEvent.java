@@ -33,7 +33,7 @@ public class ListernerEvent {
             client.newCompleteCommand(job.getKey())
                     .send()
                     .join();
-            System.out.println("Notification sent and job completed.");
+            System.out.println("Notification sent.");
         } catch (Exception e) {
             System.err.println("Error notifying banking-ws: " + e.getMessage());
             client.newFailCommand(job.getKey())

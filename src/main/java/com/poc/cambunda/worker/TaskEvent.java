@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Collections;
 import java.util.Map;
 
@@ -28,22 +27,21 @@ public class TaskEvent {
            String targetApp = (String) job.getVariablesAsMap().get("targetApp");
            Here base on the targeted app will find the needed information in our database.
         */
-        System.out.println("Notify the user about an assignee");
         try {
             String taskName = (String) job.getVariablesAsMap().get("taskName");
-            String url = connectorUrl + "/tasks/deploy";
-            restTemplate.postForEntity(connectorUrl + "/api/notify", Map.of("taskName", taskName), Void.class);
+            System.out.println("Notify about one service task to be processed " + taskName);
+            String url = connectorUrl + "/api/tasks/notify";
+            restTemplate.postForEntity(url, Map.of("taskName", taskName), Void.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new RuntimeException("Contract not found, the tasks will be aborted");
+            throw new RuntimeException("Task not found, the tasks will be aborted");
         } finally {
             // Complete the job - this is crucial!
             client.newCompleteCommand(job.getKey())
                     .variables(Collections.emptyMap()) // or add new variables if needed
                     .send()
                     .join();
-
-            System.out.println("NotifyUser job completed successfully");
+            System.out.println("Service task processed successfully");
         }
     }
 }

@@ -1,6 +1,13 @@
-com\poc\cambunda\ProcessDeployment.class
+com\poc\cambunda\config\WebClientConfig.class
+com\poc\cambunda\dto\taskDTO\TaskSearchRequest.class
 com\poc\cambunda\config\RestTemplateConfig.class
-com\poc\cambunda\TaskManagement.class
+com\poc\cambunda\dto\taskDTO\TaskResponse.class
 com\poc\cambunda\worker\ListernerEvent.class
-com\poc\cambunda\CambundaApplication.class
 com\poc\cambunda\worker\TaskEvent.class
+com\poc\cambunda\service\TaskService$1.class
+com\poc\cambunda\dto\taskDTO\TaskSearchRequest$Sort.class
+com\poc\cambunda\service\TaskService.class
+com\poc\cambunda\dto\taskDTO\TaskSearchRequest$Filter.class
+com\poc\cambunda\ProcessDeployment.class
+com\poc\cambunda\controller\TaskController.class
+com\poc\cambunda\CambundaApplication.class

@@ -32,6 +32,7 @@
         <zeebe:executionListeners>
           <zeebe:executionListener eventType="start" retries="3" type="StartEvent" />
         </zeebe:executionListeners>
+        <zeebe:assignmentDefinition assignee="demo" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0bpkcqq</bpmn:incoming>
       <bpmn:outgoing>Flow_0pr3chu</bpmn:outgoing>
