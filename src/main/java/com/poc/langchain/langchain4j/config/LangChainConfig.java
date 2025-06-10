@@ -21,7 +21,7 @@ public class LangChainConfig {
     @Bean
     public ChatModel chatModel() {
         return OpenAiChatModel.builder()
-                .apiKey(System.getenv("OPENAI_API_KEY"))
+                .apiKey(apiKey)
                 .modelName(apiModel)
                 .build();
     }

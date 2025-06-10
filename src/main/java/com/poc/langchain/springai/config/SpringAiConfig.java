@@ -19,7 +19,7 @@ public class SpringAiConfig {
     @Bean
     public OpenAiApi openAiApi() {
         return OpenAiApi.builder()
-                .apiKey(System.getenv("OPENAI_API_KEY"))
+                .apiKey(apiKey)
                 .build();
     }
 
