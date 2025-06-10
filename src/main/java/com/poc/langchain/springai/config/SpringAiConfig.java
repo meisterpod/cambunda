@@ -10,16 +10,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringAiConfig {
 
-    @Value("${spring.ai.openai.api-key}")
-    private String apiKey;
-
     @Value("${spring.ai.chat.options.model}")
     private String apiModel;
 
     @Bean
     public OpenAiApi openAiApi() {
         return OpenAiApi.builder()
-                .apiKey(apiKey)
+                .apiKey(System.getenv("OPENAI_API_KEY"))
                 .build();
     }
 

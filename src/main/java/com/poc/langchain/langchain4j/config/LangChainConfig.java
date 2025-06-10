@@ -12,16 +12,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LangChainConfig {
 
-    @Value("${quarkus.langchain4j.openai.api-key}")
-    private String apiKey;
-
     @Value("${quarkus.langchain4j.openai.chat-model.model-name}")
     private String apiModel;
 
     @Bean
     public ChatModel chatModel() {
         return OpenAiChatModel.builder()
-                .apiKey(apiKey)
+                .apiKey(System.getenv("OPENAI_API_KEY"))
                 .modelName(apiModel)
                 .build();
     }
