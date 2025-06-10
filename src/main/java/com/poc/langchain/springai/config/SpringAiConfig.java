@@ -13,6 +13,9 @@ public class SpringAiConfig {
     @Value("${spring.ai.chat.options.model}")
     private String apiModel;
 
+    @Value("${spring.ai.openai.api-key}")
+    private String apiKey;
+
     @Bean
     public OpenAiApi openAiApi() {
         return OpenAiApi.builder()

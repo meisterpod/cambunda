@@ -15,6 +15,9 @@ public class LangChainConfig {
     @Value("${quarkus.langchain4j.openai.chat-model.model-name}")
     private String apiModel;
 
+    @Value("${quarkus.langchain4j.openai.api-key}")
+    private String apiKey;
+
     @Bean
     public ChatModel chatModel() {
         return OpenAiChatModel.builder()
@@ -25,6 +28,9 @@ public class LangChainConfig {
 
     @Bean
     public LangChainAgent supportAgent(ChatModel chatModel, DeploymentTool tool) {
-        return AiServices.builder(LangChainAgent.class).chatModel(chatModel).tools(tool).build();
+        return AiServices.builder(LangChainAgent.class)
+                .chatModel(chatModel)
+                .tools(tool)
+                .build();
     }
 }
