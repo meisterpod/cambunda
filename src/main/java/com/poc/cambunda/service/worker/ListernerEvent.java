@@ -1,4 +1,4 @@
-package com.poc.cambunda.worker;
+package com.poc.cambunda.service.worker;
 
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
