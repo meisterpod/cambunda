@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/process")
-public class ProcessDeployment {
+public class DeploymentController {
 
 	@Autowired
 	private DeploymentService deploymentService;

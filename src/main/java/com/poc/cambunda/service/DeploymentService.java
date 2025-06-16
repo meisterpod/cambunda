@@ -27,6 +27,7 @@ public class DeploymentService {
 
             var deploymentResult = client.newDeployResourceCommand()
                     .addResourceFromClasspath("bpmn/" + connectorName + ".bpmn")
+                    .addResourceFromClasspath("form/approve-form.form")
                     .send()
                     .join();
 

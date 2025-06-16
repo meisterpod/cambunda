@@ -1,8 +1,10 @@
 package com.poc.langchain.springai.controller;
 
-import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.poc.langchain.springai.tool.TaskValidationTool;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.mistralai.MistralAiChatModel;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/spring-ai")
 public class SpringAiController {
 
-    private final OpenAiChatModel chatModel;
+    private final ChatClient chatClient;
 
-    @Autowired
-    public SpringAiController(OpenAiChatModel chatModel) {
-        this.chatModel = chatModel;
+    public SpringAiController(MistralAiChatModel chatModel, ChatMemory chatMemory, TaskValidationTool tools) {
+        this.chatClient = ChatClient.builder(chatModel).defaultTools(tools)
+                .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build()).build();
     }
 
-    @PostMapping("/ask")
-    public ResponseEntity<String> ask(@RequestBody String prompt) {
-        return ResponseEntity.ok(chatModel.call(prompt));
+    @PostMapping(path = "/chat", consumes = "text/plain", produces = "text/plain")
+    public String chat(@RequestBody String message) {
+        return chatClient.prompt().user(message).call().content();
     }
 }

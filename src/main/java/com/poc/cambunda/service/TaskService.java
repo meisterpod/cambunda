@@ -16,7 +16,7 @@ public class TaskService {
 
     private final WebClient tasklistClient;
 
-    public List<TaskResponse> getTasksForAssignee(String assignee, String authHeader) {
+    public List<TaskResponse> getTasksByAssignee(String assignee, String authHeader) {
         TaskSearchRequest request = new TaskSearchRequest();
         request.getFilter().setAssignee(assignee);
         request.getFilter().setState("CREATED");
@@ -29,5 +29,13 @@ public class TaskService {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<TaskResponse>>() {})
                 .block();
+    }
+
+    public TaskResponse getOneTask(String taskId, String authHeader) {
+        TaskSearchRequest request = new TaskSearchRequest();
+        request.getFilter().setAssigned(Boolean.TRUE);
+        request.getFilter().setState("CREATED");
+        request.getFilter().setTaskDefinitionId(taskId);
+        return new TaskResponse();
     }
 }

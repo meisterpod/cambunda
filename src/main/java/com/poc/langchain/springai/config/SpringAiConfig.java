@@ -1,8 +1,7 @@
 package com.poc.langchain.springai.config;
 
-import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,33 +9,36 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringAiConfig {
 
-    @Value("${spring.ai.chat.options.model}")
+    @Value("${spring.ai.mistralai.chat.options.model}")
     private String apiModel;
 
-    @Value("${spring.ai.openai.api-key}")
+    @Value("${spring.ai.mistralai.api-key}")
     private String apiKey;
 
-    @Bean
-    public OpenAiApi openAiApi() {
-        return OpenAiApi.builder()
-                .apiKey(apiKey)
-                .build();
+    /*@Bean
+    public MistralAiApi mistralAiApi() {
+        return new MistralAiApi(apiKey);
     }
 
     @Bean
-    public OpenAiChatOptions openAiChatOptions() {
-        return OpenAiChatOptions.builder()
+    public MistralAiChatOptions mistralAiChatOptions() {
+        return MistralAiChatOptions.builder()
                 .model(apiModel)
-                .temperature(0.4)
+                .temperature(0.7)
                 .maxTokens(200)
                 .build();
     }
 
     @Bean
-    public OpenAiChatModel openAiChatModel(OpenAiApi openAiApi, OpenAiChatOptions openAiChatOptions) {
-        return OpenAiChatModel.builder()
-                .openAiApi(openAiApi)
-                .defaultOptions(openAiChatOptions)
+    public MistralAiChatModel mistralAiChatModel(MistralAiApi mistralAiApi, MistralAiChatOptions mistralAiChatOptions) {
+        return MistralAiChatModel.builder()
+                .mistralAiApi(mistralAiApi)
+                .defaultOptions(mistralAiChatOptions)
                 .build();
+    }*/
+
+    @Bean
+    public ChatMemory chatMemory() {
+        return MessageWindowChatMemory.builder().build();
     }
 }

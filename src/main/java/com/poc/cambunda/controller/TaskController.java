@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/tasks")
 @RequiredArgsConstructor
 public class TaskController {
 
@@ -39,6 +39,13 @@ public class TaskController {
     public ResponseEntity<List<TaskResponse>> getTasks(
             @RequestParam String assignee,
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
-        return ResponseEntity.ok(taskService.getTasksForAssignee(assignee, authHeader));
+        return ResponseEntity.ok(taskService.getTasksByAssignee(assignee, authHeader));
+    }
+
+    @GetMapping("/taskId")
+    public ResponseEntity<TaskResponse> getOneTask(
+            @RequestParam String assignee,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        return ResponseEntity.ok(taskService.getOneTask(assignee, authHeader));
     }
 }

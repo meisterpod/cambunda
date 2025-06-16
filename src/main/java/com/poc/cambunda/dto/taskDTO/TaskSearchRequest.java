@@ -16,6 +16,8 @@ public class TaskSearchRequest {
     public static class Filter {
         private String assignee;
         private String state;
+        private Boolean assigned;
+        private String taskDefinitionId;
     }
 
     @Data
