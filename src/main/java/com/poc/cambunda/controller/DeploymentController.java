@@ -1,7 +1,6 @@
 package com.poc.cambunda.controller;
 
 import com.poc.cambunda.service.DeploymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,11 @@ import java.util.Map;
 @RequestMapping("/process")
 public class DeploymentController {
 
-	@Autowired
-	private DeploymentService deploymentService;
+	private final DeploymentService deploymentService;
+
+	public DeploymentController(DeploymentService deploymentService) {
+		this.deploymentService = deploymentService;
+	}
 
 	@PostMapping("/deploy")
 	public ResponseEntity<String> deployFromClasspath(@RequestBody Map<String, String> requestBody) {

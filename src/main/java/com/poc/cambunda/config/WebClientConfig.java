@@ -16,6 +16,17 @@ public class WebClientConfig {
     @Value("${camunda.client.zeebe.base-url}")
     private String baseApiUrl;
 
+    @Value("${operate.client.base-url}")
+    private String operateApiUrl;
+
+    @Bean
+    public WebClient operateClient() {
+        return WebClient.builder()
+                .baseUrl(operateApiUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
+
     @Bean
     public WebClient tasklistClient() {
         return WebClient.builder()

@@ -37,6 +37,11 @@ public class SpringAiConfig {
                 .build();
     }*/
 
+    /*@Bean
+    public VectorStore vectorStore(MistralAiApi.EmbeddingModel embeddingModel) {
+        return new MemoryVectorStore(embeddingModel);
+    }*/
+
     @Bean
     public ChatMemory chatMemory() {
         return MessageWindowChatMemory.builder().build();

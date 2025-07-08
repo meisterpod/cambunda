@@ -1,7 +1,7 @@
 package com.poc.cambunda.service;
 
 import io.camunda.zeebe.client.ZeebeClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class DeploymentService {
 
-    @Autowired
-    private ZeebeClient client;
+    private final ZeebeClient client;
 
     public String deployFromClasspath(String connectorName) {
         try {

@@ -1,31 +1,33 @@
 package com.poc.cambunda.controller;
 
+import com.poc.cambunda.dto.formDTO.FormResponse;
 import com.poc.cambunda.dto.formDTO.FormSearchRequest;
 import com.poc.cambunda.service.FormService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import com.poc.cambunda.service.TokenService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/forms")
-@RequiredArgsConstructor
 public class FormController {
 
-    @Autowired
-    private FormService formService;
+    private final FormService formService;
+
+    private final TokenService tokenService;
+
+    public FormController(FormService formService, TokenService tokenService) {
+        this.formService = formService;
+        this.tokenService = tokenService;
+    }
 
     @GetMapping("/{formId}")
-    public ResponseEntity<Mono<ResponseEntity<String>>> getForm(@PathVariable String formId,
-                                                               @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader,
-                                                                @RequestParam String processDefinitionKey,
-                                                                @RequestParam String version) {
+    public Mono<FormResponse> getForm(@PathVariable String formId,
+                                      @RequestParam String processDefinitionKey,
+                                      @RequestParam(required = false) String version) {
         FormSearchRequest formSearchRequest = new FormSearchRequest();
         formSearchRequest.setFormId(formId);
         formSearchRequest.setProcessDefinitionKey(processDefinitionKey);
         formSearchRequest.setVersion(version);
-        return ResponseEntity.ok(formService.getForm(formSearchRequest, authHeader));
+        return formService.getForm(formSearchRequest, tokenService.getToken());
     }
 }
