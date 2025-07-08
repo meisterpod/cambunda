@@ -28,7 +28,16 @@ public class TaskProcessTool {
         return taskService.getOneTaskById(taskId, tokenService.getToken());
     }
 
-    @Tool(description = "Get a list of tasks assigned to a specific user")
+    @Tool(description = "Get a list of tasks assigned to a specific user." +
+            "Provide a helpful response about BPMN processes. If your response contains tabular data (like process instances, tasks, or forms), \" +\n" +
+            "            \"please format it as COMPLETE and VALID JSON within code blocks like this:  \\\\`\\\\`\\\\`json\\n\" +\n" +
+            "            \"      [{\\\"id\\\": \\\"123\\\", \\\"name\\\": \\\"task-name\\\", \\\"processName\\\": \\\"process\\\", \\\"taskState\\\": \\\"CREATED\\\", \\\"creationDate\\\": \\\"2024-01-15T10:30:00Z\\\"}]\\n\" +\n" +
+            "            \"      \\\\`\\\\`\\\\`\\n\" +\n" +
+            "            \"      Important: \\n\" +\n" +
+            "            \"      - Ensure the JSON is complete and properly closed\\n\" +\n" +
+            "            \"      - Use ISO date format (YYYY-MM-DDTHH:mm:ssZ) instead of Unix timestamps\\n\" +\n" +
+            "            \"      - Include all relevant fields for each record\\n\" +\n" +
+            "            \"      This helps me display the information in a readable table format with search and pagination.")
     public List<TaskResponse> getTasksByAssignee(
             @ToolParam(description = "The assignee username or ID") String assignee) {
         return taskService.getTasksByAssignee(assignee, tokenService.getToken());

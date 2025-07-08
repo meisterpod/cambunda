@@ -18,12 +18,30 @@ public class ProcessTool {
         this.tokenService = tokenService;
     }
 
-    @Tool(description = "Search for process definitions with optional filters")
+    @Tool(description = "Search for process definitions with optional filters. " +
+            "Provide a helpful response about BPMN processes. If your response contains tabular data (like process instances, tasks, or forms), " +
+            "please format it as COMPLETE and VALID JSON within code blocks like this:  \\`\\`\\`json\n" +
+            "      [{\"id\": \"123\", \"name\": \"task-name\", \"processName\": \"process\", \"taskState\": \"CREATED\", \"creationDate\": \"2024-01-15T10:30:00Z\"}]\n" +
+            "      \\`\\`\\`\n" +
+            "      Important: \n" +
+            "      - Ensure the JSON is complete and properly closed\n" +
+            "      - Use ISO date format (YYYY-MM-DDTHH:mm:ssZ) instead of Unix timestamps\n" +
+            "      - Include all relevant fields for each record\n" +
+            "      This helps me display the information in a readable table format with search and pagination.")
     public ProcessDefinitionSearchResponse searchProcessDefinitions(@ToolParam ProcessDefinitionSearchRequest request) {
         return processService.searchProcessDefinitions(request, tokenService.getToken());
     }
 
-    @Tool(description = "Search for process instances with optional filters")
+    @Tool(description = "Search for process instances with optional filters" +
+            "Provide a helpful response about BPMN processes. If your response contains tabular data (like process instances, tasks, or forms), \" +\n" +
+            "            \"please format it as COMPLETE and VALID JSON within code blocks like this:  \\\\`\\\\`\\\\`json\\n\" +\n" +
+            "            \"      [{\\\"id\\\": \\\"123\\\", \\\"name\\\": \\\"task-name\\\", \\\"processName\\\": \\\"process\\\", \\\"taskState\\\": \\\"CREATED\\\", \\\"creationDate\\\": \\\"2024-01-15T10:30:00Z\\\"}]\\n\" +\n" +
+            "            \"      \\\\`\\\\`\\\\`\\n\" +\n" +
+            "            \"      Important: \\n\" +\n" +
+            "            \"      - Ensure the JSON is complete and properly closed\\n\" +\n" +
+            "            \"      - Use ISO date format (YYYY-MM-DDTHH:mm:ssZ) instead of Unix timestamps\\n\" +\n" +
+            "            \"      - Include all relevant fields for each record\\n\" +\n" +
+            "            \"      This helps me display the information in a readable table format with search and pagination.")
     public ProcessInstanceSearchResponse searchProcessInstances(@ToolParam ProcessInstanceSearchRequest request) {
         return processService.searchProcessInstances(request, tokenService.getToken());
     }

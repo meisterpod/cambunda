@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Schema(description = "Search request for retrieving process definitions based on filters, size, and sorting.")
 public class ProcessDefinitionSearchRequest {
 
@@ -21,23 +21,25 @@ public class ProcessDefinitionSearchRequest {
     private List<Sort> sort;
 
     @Data
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Schema(description = "Fields to filter process definitions.")
     public static class ProcessDefinitionFilter {
 
         @Schema(description = "Name of the process definition. Leave null if not specified.", example = "Invoice Processing")
         private String name;
 
-        @Schema(description = "BPMN process ID used in the BPMN model.", example = "Process_Invoice_001")
+        @Schema(description = "BPMN process ID used in the BPMN model. Leave null if not specified.", example = "Process_Invoice_001")
         private String bpmnProcessId;
 
-        @Schema(description = "Specific version of the process definition.", example = "2")
+        @Schema(description = "Specific version of the process definition. Leave null if not specified.", example = "2")
         private Integer version;
 
-        @Schema(description = "Name of the BPMN resource file deployed.", example = "invoice-process.bpmn")
+        @Schema(description = "Name of the BPMN resource file deployed. Leave null if not specified.", example = "invoice-process.bpmn")
         private String resourceName;
     }
 
     @Data
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @Schema(description = "Sort configuration to order the returned process definitions.")
     public static class Sort {
 

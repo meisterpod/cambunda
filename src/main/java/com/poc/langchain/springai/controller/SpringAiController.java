@@ -8,7 +8,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.mistralai.MistralAiChatModel;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class SpringAiController {
     private final ChatClient chatClient;
     private final SpringAgent springAgent;
 
-    public SpringAiController(MistralAiChatModel chatModel,
+    public SpringAiController(OpenAiChatModel chatModel,
                               ChatMemory chatMemory,
                               DeployProcessTool deployTool,
                               TaskProcessTool taskTool,
