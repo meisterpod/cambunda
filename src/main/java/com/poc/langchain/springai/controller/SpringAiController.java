@@ -1,14 +1,8 @@
 package com.poc.langchain.springai.controller;
 
+import com.poc.langchain.springai.agent.FallbackChatClient;
 import com.poc.langchain.springai.agent.SpringAgent;
-import com.poc.langchain.springai.tool.DeployProcessTool;
-import com.poc.langchain.springai.tool.ProcessTool;
-import com.poc.langchain.springai.tool.TaskProcessTool;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,19 +14,11 @@ import java.io.IOException;
 @RequestMapping("/spring-ai")
 public class SpringAiController {
 
-    private final ChatClient chatClient;
+    private final FallbackChatClient fallbackChatClient;
     private final SpringAgent springAgent;
 
-    public SpringAiController(OpenAiChatModel chatModel,
-                              ChatMemory chatMemory,
-                              DeployProcessTool deployTool,
-                              TaskProcessTool taskTool,
-                              ProcessTool processTool,
-                              SpringAgent springAgent) {
-        this.chatClient = ChatClient.builder(chatModel)
-                .defaultTools(deployTool, taskTool, processTool)
-                .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
-                .build();
+    public SpringAiController(FallbackChatClient fallbackChatClient, SpringAgent springAgent) {
+        this.fallbackChatClient = fallbackChatClient;
         this.springAgent = springAgent;
     }
 
@@ -40,6 +26,6 @@ public class SpringAiController {
     @PostMapping(path = "/chat", consumes = "text/plain", produces = "text/plain")
     public String chat(@RequestBody String message) throws IOException {
         Prompt prompt = springAgent.createPrompt(message);
-        return chatClient.prompt(message).call().content();
+        return fallbackChatClient.call(message);
     }
 }

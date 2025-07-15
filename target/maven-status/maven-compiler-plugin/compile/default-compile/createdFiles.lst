@@ -37,6 +37,7 @@ com\poc\langchain\springai\tool\DeployProcessTool.class
 com\poc\langchain\langchain4j\websocket\AgentWebSocket.class
 com\poc\cambunda\dto\taskDTO\TaskSearchRequest$Filter.class
 com\poc\cambunda\service\TaskService$2.class
+com\poc\langchain\springai\agent\FallbackChatClient.class
 com\poc\cambunda\dto\formDTO\FormSearchRequest.class
 com\poc\langchain\springai\controller\SpringAiController.class
 com\poc\cambunda\service\worker\ListernerEvent.class

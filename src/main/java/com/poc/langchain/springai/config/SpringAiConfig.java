@@ -1,5 +1,7 @@
 package com.poc.langchain.springai.config;
 
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
@@ -38,5 +40,10 @@ public class SpringAiConfig {
                 .openAiApi(openAiApi)
                 .defaultOptions(openAiChatOptions)
                 .build();
+    }
+
+    @Bean
+    public ChatMemory chatMemory() {
+        return MessageWindowChatMemory.builder().build();
     }
 }
